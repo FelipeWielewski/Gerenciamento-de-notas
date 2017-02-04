@@ -17,11 +17,7 @@ namespace NeoMode.Service.Services
             _dbContext = dbContext;
         }
         
-
-        public string Test()
-        {
-            return "teste dEPENDENCY";
-        }
+        
         public IEnumerable<City> GetAll()
         {
             return _dbContext.City.ToList();

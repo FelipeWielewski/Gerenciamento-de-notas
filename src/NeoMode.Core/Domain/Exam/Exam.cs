@@ -25,5 +25,6 @@ namespace NeoMode.Core.Domain
         /// ID do Estudante
         /// </summary>
         public int StudentId { get; set; }
+        public virtual Student Student { get; set; }
     }
 }

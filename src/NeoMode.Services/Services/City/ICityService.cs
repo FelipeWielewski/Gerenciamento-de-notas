@@ -14,7 +14,6 @@ namespace NeoMode.Service.Services
         City GetByCode(string Initials);
         void InsertCity(City CityToInsert);
         bool UpdateCity(City CityToUpdate);
-        string Test();
 
     }
 }

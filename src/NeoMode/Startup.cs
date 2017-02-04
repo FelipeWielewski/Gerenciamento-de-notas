@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using NeoMode.Core;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using NeoMode.Service.Services;
+using NeoMode.Services.Services;
 
 namespace NeoMode
 {
@@ -39,6 +40,8 @@ namespace NeoMode
 
 
             services.AddTransient<ICityService, CityService>();
+            services.AddTransient<IExamService, ExamService>();
+            services.AddTransient<IExamConfigService, ExamConfigService>();
 
             //services.AddIdentity<ApplicationUser, IdentityRole>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>()
