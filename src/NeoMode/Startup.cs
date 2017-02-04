@@ -12,6 +12,7 @@ using NeoMode.Core;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using NeoMode.Service.Services;
 using NeoMode.Services.Services;
+using System.Reflection;
 
 namespace NeoMode
 {
@@ -33,7 +34,8 @@ namespace NeoMode
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc()
+                .AddApplicationPart(typeof(NeoMode.API.Controllers.StudentController).GetTypeInfo().Assembly);
 
             // Add framework services.
             services.AddTransient<ApplicationDbContext>(sp => new ApplicationDbContext());
@@ -81,11 +83,11 @@ namespace NeoMode
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+                {
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller=Home}/{action=Index}/{id?}");
+                });
         }
     }
 }
