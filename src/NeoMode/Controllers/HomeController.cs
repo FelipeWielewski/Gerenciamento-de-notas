@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NeoMode.Service.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NeoMode.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ICityService _cityService;
@@ -14,6 +16,7 @@ namespace NeoMode.Controllers
         {
             this._cityService = cityService;
         }
+        [AllowAnonymous]
         public IActionResult Index()
         {
 
@@ -28,7 +31,7 @@ namespace NeoMode.Controllers
 
             return View();
         }
-
+        [Authorize]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
