@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B897D68C-9776-4C07-B2D5-E19890CD3F26}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8A2B1C6D-508B-4800-A482-A7D80D53581C}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libraries", "libraries", "{1DD433BC-2F40-48B1-9DAE-493DDE4340B9}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NeoMode", "src\NeoMode\NeoMode.xproj", "{1906AC6F-1157-4C4F-9471-048115E3554D}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NeoMode.API", "src\NeoMode.API\NeoMode.API.xproj", "{32303915-9776-43F8-8ED2-596EFD6A0519}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NeoMode.Core", "src\NeoMode.Core\NeoMode.Core.xproj", "{3F5DF9D3-D4C5-4077-9B2F-A6AAACE643E1}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NeoMode.Services", "src\NeoMode.Services\NeoMode.Services.xproj", "{4AEA7409-F464-4067-A674-70B514552FC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1906AC6F-1157-4C4F-9471-048115E3554D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1906AC6F-1157-4C4F-9471-048115E3554D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1906AC6F-1157-4C4F-9471-048115E3554D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1906AC6F-1157-4C4F-9471-048115E3554D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32303915-9776-43F8-8ED2-596EFD6A0519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32303915-9776-43F8-8ED2-596EFD6A0519}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32303915-9776-43F8-8ED2-596EFD6A0519}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32303915-9776-43F8-8ED2-596EFD6A0519}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F5DF9D3-D4C5-4077-9B2F-A6AAACE643E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F5DF9D3-D4C5-4077-9B2F-A6AAACE643E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F5DF9D3-D4C5-4077-9B2F-A6AAACE643E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F5DF9D3-D4C5-4077-9B2F-A6AAACE643E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AEA7409-F464-4067-A674-70B514552FC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AEA7409-F464-4067-A674-70B514552FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AEA7409-F464-4067-A674-70B514552FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AEA7409-F464-4067-A674-70B514552FC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1DD433BC-2F40-48B1-9DAE-493DDE4340B9} = {B897D68C-9776-4C07-B2D5-E19890CD3F26}
+		{1906AC6F-1157-4C4F-9471-048115E3554D} = {B897D68C-9776-4C07-B2D5-E19890CD3F26}
+		{32303915-9776-43F8-8ED2-596EFD6A0519} = {B897D68C-9776-4C07-B2D5-E19890CD3F26}
+		{3F5DF9D3-D4C5-4077-9B2F-A6AAACE643E1} = {1DD433BC-2F40-48B1-9DAE-493DDE4340B9}
+		{4AEA7409-F464-4067-A674-70B514552FC3} = {1DD433BC-2F40-48B1-9DAE-493DDE4340B9}
+	EndGlobalSection
+EndGlobal
