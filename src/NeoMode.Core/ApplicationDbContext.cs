@@ -11,13 +11,23 @@ namespace NeoMode.Core
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<City> Cities { get; set; }
-        public DbSet<Exam> Exams { get; set; }
-        public DbSet<ExamConfig> ExamConfigs { get; set; }
+        public DbSet<City> City { get; set; }
+        public DbSet<Exam> Exam { get; set; }
+        public DbSet<ExamConfig> ExamConfig { get; set; }
         public DbSet<Student> Student { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"DataProvider: sqlserver;DataConnectionString: Data Source=neomodeatividadedb.database.windows.net;Initial Catalog=neomodeAtividadeDB;Integrated Security=False;Persist Security Info=False;User ID=felipew;Password=apolec,109");
+            var connectionString = new System.Data.SqlClient.SqlConnectionStringBuilder
+            {
+                InitialCatalog = "neomodeAtividadeDB",
+                DataSource = "neomodeatividadedb.database.windows.net",
+                IntegratedSecurity = false,
+                UserID = "felipew",
+                Password = "apolec,109",               // hide the password
+
+            }.ConnectionString;
+
+            optionsBuilder.UseSqlServer(connectionString);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace NeoMode.Controllers
         public IActionResult Index()
         {
 
+            var result = _cityService.GetById(1);
 
             return View();
         }

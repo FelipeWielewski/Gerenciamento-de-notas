@@ -24,15 +24,15 @@ namespace NeoMode.Service.Services
         }
         public IEnumerable<City> GetAll()
         {
-            return _dbContext.Cities.ToList();
+            return _dbContext.City.ToList();
         }
         public City GetById(int Id)
         {
-            return _dbContext.Cities.Where(X => X.Id == Id).ToList().FirstOrDefault();
+            return _dbContext.City.Where(X => X.Id == Id).ToList().FirstOrDefault();
         }
         public City GetByCode(string Initials)
         {
-            return _dbContext.Cities.Where(X => X.Initials == Initials).ToList().FirstOrDefault();
+            return _dbContext.City.Where(X => X.Initials == Initials).ToList().FirstOrDefault();
         }
         public void InsertCity(City CityToInsert)
         {
@@ -43,7 +43,7 @@ namespace NeoMode.Service.Services
             newCity.Id = 0;
 
             //Salvando
-            _dbContext.Cities.Add(newCity);
+            _dbContext.City.Add(newCity);
 
             _dbContext.SaveChanges();
         }
