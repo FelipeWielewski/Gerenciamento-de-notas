@@ -24,7 +24,8 @@
     "Microsoft.EntityFrameworkCore": "1.1.0",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0",
     "NeoMode.Core": "1.0.0-*",
-    "NeoMode.Services": "1.0.0-*"},
+    "NeoMode.Services": "1.0.0-*",
+    "NeoMode.API": "1.0.0-*"},
 
   "tools": {
     "BundlerMinifier.Core": "2.0.238",
