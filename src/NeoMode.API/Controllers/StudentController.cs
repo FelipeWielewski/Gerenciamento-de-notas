@@ -4,6 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using NeoMode.Services.Services;
+using NeoMode.API.Model;
+using System.Net.Http;
+using System.Net;
+using NeoMode.Core.Domain;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,36 +18,56 @@ namespace NeoMode.API.Controllers
     [Authorize]
     public class StudentController : Controller
     {
-        // GET: api/values
+        private readonly IStudentService _studentService;
+        private readonly IExamService _examService;
+        public StudentController(IStudentService studentService, IExamService examService)
+        {
+            this._studentService = studentService;
+            this._examService = examService;
+        }
+
+        [AllowAnonymous]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public void TestInsertNewUser(string testeNewUser)
         {
-            return new string[] { "value1", "value2" };
+            InsertStudent(new StudentModel()
+            {
+                FullName = "Teste",
+                RegistryCode = (new Random().Next(1, 5000)).ToString().PadLeft(10)
+            });
         }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
+        /// <summary>
+        /// Insere um novo aluno
+        /// </summary>
+        /// <param name="Student"></param>
+        /// <returns></returns>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult InsertStudent(StudentModel Student)
         {
-        }
+            try
+            {
+                var result = _studentService.GetByRegistryCode(Student.RegistryCode);
+                if (result == null)
+                {
+                    _studentService.InsertStudent(new Student()
+                    {
+                        RegistryCode = Student.RegistryCode,
+                        Email = "",
+                        FullName = Student.FullName,
+                        ProfileImage = "",
+                        Id = 0                        
+                    });
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+                    return Ok();
+                }
+            }
+            catch (Exception e)
+            {
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            }
+            return BadRequest();
         }
+        
+
     }
 }

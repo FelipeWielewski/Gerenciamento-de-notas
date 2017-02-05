@@ -48,17 +48,20 @@ namespace NeoMode
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            // Add framework services.
-            services.AddMvc().AddApplicationPart(typeof(NeoMode.API.Controllers.StudentController).GetTypeInfo().Assembly).AddControllersAsServices();
-
-
             // Add framework services.
             services.AddTransient<ApplicationDbContext>(sp => new ApplicationDbContext());
 
             services.AddTransient<ICityService, CityService>();
+            services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<ISchoolService, SchoolService>();
             services.AddTransient<IExamService, ExamService>();
             services.AddTransient<IExamConfigService, ExamConfigService>();
+            
+            // Add framework services.
+            services.AddMvc().AddApplicationPart(typeof(NeoMode.API.Controllers.StudentController).GetTypeInfo().Assembly).AddControllersAsServices();
+
+
+          
 
             //services.AddIdentity<ApplicationUser, IdentityRole>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -139,7 +142,7 @@ namespace NeoMode
                 TicketDataFormat = new CustomJwtDataFormat(
                     SecurityAlgorithms.HmacSha256,
                     tokenValidationParameters)
-                
+
             });
 
             app.UseMiddleware<TokenProviderMiddleware>(Options.Create(tokenProviderOptions));
@@ -154,7 +157,7 @@ namespace NeoMode
                         template: "{controller=Home}/{action=Index}/{id?}");
                 });
         }
-        private Task<ClaimsIdentity> GetIdentity(string username, string password)
+        private Task<ClaimsIdentity> GetIdentity(string username, string password, int type)
         {
 
             // DEMO CODE, DON NOT USE IN PRODUCTION!!!

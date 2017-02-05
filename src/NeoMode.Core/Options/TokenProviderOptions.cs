@@ -40,6 +40,6 @@ namespace NeoMode.Core.Options
         /// <summary>
         /// Resolves a user identity given a username and password.
         /// </summary>
-        public Func<string, string, Task<ClaimsIdentity>> IdentityResolver { get; set; }
+        public Func<string, string, int, Task<ClaimsIdentity>> IdentityResolver { get; set; }
     }
 }

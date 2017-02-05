@@ -25,7 +25,7 @@ namespace NeoMode.Core.Domain
         /// E-mail de contato
         /// </summary>
         public string Email { get; set; }
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
         public virtual City City { get; set; }
     }
 }

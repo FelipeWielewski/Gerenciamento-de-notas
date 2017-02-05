@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NeoMode.Core.Domain;
 using NeoMode.Core.Domain.ExamConfig;
+using NeoMode.Core.Domain.School;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace NeoMode.Core
         public DbSet<Exam> Exam { get; set; }
         public DbSet<ExamConfig> ExamConfig { get; set; }
         public DbSet<Student> Student { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<School> School { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<City>().ToTable("City");
@@ -32,6 +36,18 @@ namespace NeoMode.Core
             modelBuilder.Entity<Student>().ToTable("Student");
             modelBuilder.Entity<Student>().HasKey(x => x.Id);
             modelBuilder.Entity<Student>().HasOne(x => x.City).WithMany().HasForeignKey(X => X.CityId);
+
+            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<User>().HasKey(x => x.Id);
+            modelBuilder.Entity<User>().Property(x => x.FullName).HasMaxLength(200);
+            modelBuilder.Entity<User>().Property(x => x.Username).HasMaxLength(50);
+            modelBuilder.Entity<User>().Property(x => x.Password).HasMaxLength(50);
+
+            modelBuilder.Entity<School>().ToTable("School");
+            modelBuilder.Entity<School>().HasKey(x => x.Id);
+            modelBuilder.Entity<School>().Property(x => x.ControlKey).HasMaxLength(100);
+            modelBuilder.Entity<School>().Property(x => x.SecondaryKey).HasMaxLength(100);
+            modelBuilder.Entity<School>().Property(x => x.Description).HasMaxLength(150);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

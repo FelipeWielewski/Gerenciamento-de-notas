@@ -56,8 +56,9 @@ namespace NeoMode.Model
         {
             var username = context.Request.Form["username"];
             var password = context.Request.Form["password"];
+            var type = context.Request.Form["type"];
 
-            var identity = await _options.IdentityResolver(username, password);
+            var identity = await _options.IdentityResolver(username, password, int.Parse(type.ToString()));
             if (identity == null)
             {
                 context.Response.StatusCode = 400;
