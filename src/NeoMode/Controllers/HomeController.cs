@@ -5,35 +5,39 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NeoMode.Service.Services;
 using Microsoft.AspNetCore.Authorization;
+using NeoMode.Services;
 
 namespace NeoMode.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
-        private readonly ICityService _cityService;
-        public HomeController(ICityService cityService)
+        public HomeController()
         {
-            this._cityService = cityService;
         }
-        [AllowAnonymous]
         public IActionResult Index()
         {
+            if (!AuthenticationHelp.isLogged())
+                return RedirectToAction("Index", "Login");
 
-            var result = _cityService.GetById(1);
 
             return View();
         }
 
         public IActionResult About()
         {
+            if (!AuthenticationHelp.isLogged())
+                return RedirectToAction("Index", "Login");
+
             ViewData["Message"] = "Your application description page.";
 
             return View();
         }
-        [Authorize]
         public IActionResult Contact()
         {
+            if (!AuthenticationHelp.isLogged())
+                return RedirectToAction("Index", "Login");
+
+
             ViewData["Message"] = "Your contact page.";
 
             return View();
@@ -41,6 +45,9 @@ namespace NeoMode.Controllers
 
         public IActionResult Error()
         {
+            if (!AuthenticationHelp.isLogged())
+                return RedirectToAction("Index", "Login");
+
             return View();
         }
     }

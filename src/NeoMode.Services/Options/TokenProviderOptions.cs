@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using NeoMode.Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,6 @@ namespace NeoMode.Core.Options
         /// <summary>
         /// Resolves a user identity given a username and password.
         /// </summary>
-        public Func<string, string, int, Task<ClaimsIdentity>> IdentityResolver { get; set; }
+        public Func<string, string, int, ISchoolService, Task<ClaimsIdentity>> IdentityResolver { get; set; }
     }
 }

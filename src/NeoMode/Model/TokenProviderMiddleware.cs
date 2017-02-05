@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NeoMode.Core.Options;
+using NeoMode.Services.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,8 @@ namespace NeoMode.Model
         private readonly RequestDelegate _next;
         private readonly TokenProviderOptions _options;
         private readonly JsonSerializerSettings _serializerSettings;
+
+        private ISchoolService schoolService { get; set; }
 
         public TokenProviderMiddleware(
             RequestDelegate next,
@@ -34,6 +38,9 @@ namespace NeoMode.Model
 
         public Task Invoke(HttpContext context)
         {
+            var service = context.RequestServices.GetService(typeof(ISchoolService));
+            schoolService = (ISchoolService)service;
+
             // If the request path doesn't match, skip
             if (!context.Request.Path.Equals(_options.Path, StringComparison.Ordinal))
             {
@@ -58,7 +65,7 @@ namespace NeoMode.Model
             var password = context.Request.Form["password"];
             var type = context.Request.Form["type"];
 
-            var identity = await _options.IdentityResolver(username, password, int.Parse(type.ToString()));
+            var identity = await _options.IdentityResolver(username, password, int.Parse(type.ToString()), schoolService);
             if (identity == null)
             {
                 context.Response.StatusCode = 400;

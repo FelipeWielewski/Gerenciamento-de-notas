@@ -5,25 +5,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
 using NeoMode.Core;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using NeoMode.Service.Services;
 using NeoMode.Services.Services;
 using System.Reflection;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using NeoMode.Core.Options;
 using NeoMode.Model;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Security.Principal;
+using Microsoft.AspNetCore.Mvc;
+using NeoMode.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace NeoMode
 {
@@ -56,30 +54,27 @@ namespace NeoMode
             services.AddTransient<ISchoolService, SchoolService>();
             services.AddTransient<IExamService, ExamService>();
             services.AddTransient<IExamConfigService, ExamConfigService>();
-            
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IEncryptionService, EncryptionService>();
+
+            services.AddSession();
+            //services.AddSession(options => {
+            //    options.IdleTimeout = TimeSpan.FromMinutes(30);
+            //    options.CookieName = ".MyApplication";
+            //});
+
             // Add framework services.
             services.AddMvc().AddApplicationPart(typeof(NeoMode.API.Controllers.StudentController).GetTypeInfo().Assembly).AddControllersAsServices();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-          
+            //SET IHttpContextAccessor
+            var serviceProvider = services.BuildServiceProvider();            
+            var accessor = serviceProvider.GetService<IHttpContextAccessor>();
 
-            //services.AddIdentity<ApplicationUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>()
-            //    .AddDefaultTokenProviders();
+            AuthenticationHelp.SetHttpContextAccessor(accessor);
 
-            //// Add application services.
-            //services.AddTransient<IEmailSender, AuthMessageSender>();
-            //services.AddTransient<ISmsSender, AuthMessageSender>();
-
-            //var builder = new ContainerBuilder();
-
-            //builder.RegisterModule<DataModule>();
-            //builder.RegisterType<SeedDataService>().As<ISeedDataService>();
-
-            //builder.Populate(services);
-
-            //var container = builder.Build();
-            //return container.Resolve<IServiceProvider>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -146,10 +141,12 @@ namespace NeoMode
             });
 
             app.UseMiddleware<TokenProviderMiddleware>(Options.Create(tokenProviderOptions));
+            app.UseMiddleware<UserProviderMiddleware>();
             //---------------------------
 
             app.UseStaticFiles();
 
+            app.UseSession();
             app.UseMvc(routes =>
                 {
                     routes.MapRoute(
@@ -157,15 +154,13 @@ namespace NeoMode
                         template: "{controller=Home}/{action=Index}/{id?}");
                 });
         }
-        private Task<ClaimsIdentity> GetIdentity(string username, string password, int type)
+        private Task<ClaimsIdentity> GetIdentity(string username, string password, int type, [FromServices] ISchoolService schoolService)
         {
-
-            // DEMO CODE, DON NOT USE IN PRODUCTION!!!
-            if (username == "TEST" && password == "TEST123")
+            var result = schoolService.GetByPrimaryKey(username, password);
+            if (result != null)
             {
                 return Task.FromResult(new ClaimsIdentity(new GenericIdentity(username, "Token"), new Claim[] { }));
             }
-
             // Account doesn't exists
             return Task.FromResult<ClaimsIdentity>(null);
         }

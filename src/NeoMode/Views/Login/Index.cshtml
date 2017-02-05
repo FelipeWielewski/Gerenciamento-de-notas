@@ -1,0 +1,72 @@
+﻿@model NeoMode.Model.LoginModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Acesso ao sistema</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/normalize.min.css">
+    <link rel='stylesheet prefetch' href='~/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch' href='~/css/font.css'>
+    <link rel="stylesheet" href="~/css/style.css">
+
+</head>
+<body>
+    @if(TempData["Message"] != null)
+    {
+        <text>
+        <div class="alert alert-info" role="alert">@TempData["Message"]</div>
+        </text>
+    }
+    <div id="login-main">
+        <div class="container login-main">
+            <div class="user-img">
+                <img src="~/images/profileImage.jpg" class="img-circle user-img img-thumbnail" height="150" width="150" alt="">
+            </div>
+            <div class="col-md-4 login-form">
+
+                <form class="form-horizontal" role="form" asp-controller="Login" asp-action="Index" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control login-field" value="" asp-for="username" placeholder="b.senger" id="username">
+                        <label for="username" class="login-name"><i class="fa fa-envelope"></i></label>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control login-field" value="" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;" asp-for="password" id="password">
+                        <label for="password" class="login-pass"><i class="glyphicon glyphicon-lock"></i></label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-lg btn-block" >Log in</button>
+                    </div>
+                    <div class="form-group input-check">
+                        <input type="checkbox" id="remember-me" name="remember-me" value="" checked>
+                        <label for="remember-me"><span>Remember me</span></label>
+                    </div>
+                    <div class="form-group">
+                        <a class="login-link" href="#">Forgot Password? </a>
+                    </div>
+                </form>
+            </div>
+            <!--login-form-->
+
+            <footer>
+                <div class="col-md-4 login-footer">
+                    <div class="btn-group dropup">
+                        <ul class="list-inline list-unstyled">
+                            <li>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+        <!--container-->
+    </div>
+    <!--[END]login-main-->
+    <script src='~/lib/jquery/dist/jquery.min.js'></script>
+    <script src='~/lib/bootstrap/dist/js/bootstrap.min.js'></script>
+
+</body>
+</html>

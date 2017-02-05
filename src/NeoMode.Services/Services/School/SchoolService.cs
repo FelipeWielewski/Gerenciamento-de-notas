@@ -25,6 +25,10 @@ namespace NeoMode.Services.Services
             return _dbContext.School.Where(X => X.Id == Id).ToList().FirstOrDefault();
         }
 
+        public School GetByPrimaryKey(string PrimaryKey, string SecondaryKey)
+        {
+            return _dbContext.School.Where(X => X.ControlKey == PrimaryKey && X.SecondaryKey == SecondaryKey).ToList().FirstOrDefault();
+        }
         public void InsertSchool(School SchoolToInsert)
         {
             var newSchool = new School();
