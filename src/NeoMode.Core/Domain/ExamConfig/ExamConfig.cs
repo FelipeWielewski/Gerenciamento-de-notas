@@ -25,5 +25,9 @@ namespace NeoMode.Core.Domain.ExamConfig
         /// Nota média para ser aprovado
         /// </summary>
         public decimal AverageScore { get; set; }
+        /// <summary>
+        /// Nota Máxima para as provas
+        /// </summary>
+        public decimal MaxScore { get; set; }
     }
 }

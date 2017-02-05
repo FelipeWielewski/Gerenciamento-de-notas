@@ -1,0 +1,112 @@
+﻿@model NeoMode.Model.StudentModel
+<style>
+    .margin {
+        margin-top: 10px;
+    }
+</style>
+@if (TempData["Message"] != null)
+{
+    <text>
+    <div class="row">
+        <div class="alert alert-info" role="alert">@TempData["Message"]</div>
+    </div>
+    </text>
+}
+<div class="row">
+    <center><h2>Informações do Aluno - @Model.FullName</h2></center>
+</div>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#dados">Dados</a></li>
+    <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+    <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="dados" class="tab-pane fade in active">
+        <div class="row margin center-block">
+            <form class="form-horizontal" asp-action="Edit" asp-controller="Student" method="POST" enctype="multipart/form-data">
+                <fieldset>
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.HiddenFor(x => x.ProfileImage)
+                    <div class="control-group margin">
+                        <div class="controls">
+                            <img src="@Model.ProfileImage" height="150" width="150" class="img-circle" />
+                            <input type="file" name="file" id="file" hidden />
+                        </div>
+                    </div>
+                    <div class="control-group margin">
+                        <!-- Username -->
+                        <label class="control-label" for="FullName">Nome:</label>
+                        <div class="controls">
+                            <input type="text" id="FullName" asp-for="FullName" name="FullName" placeholder="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="control-group margin">
+                        <!-- E-mail -->
+                        <label class="control-label" for="Email">E-mail</label>
+                        <div class="controls">
+                            <input type="text" id="Email" asp-for="Email" name="Email" placeholder="" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="control-group margin">
+                        <!-- Password-->
+                        <label class="control-label" for="RegistryCode">Número da matricula</label>
+                        <div class="controls">
+                            <input type="text" asp-for="RegistryCode" id="RegistryCode" name="RegistryCode" placeholder="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="control-group margin">
+                        <!-- Password-->
+                        <label class="control-label" for="Phone">Telefone</label>
+                        <div class="controls">
+                            <input type="text" asp-for="Phone" id="Phone" name="Phone" placeholder="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="control-group margin">
+                        @Html.HiddenFor(x => x.CityId, new { id="cityId"})
+                        <label class="control-label" for="CityId">Cidade</label>
+                        <div class="controls">
+                            <select id="select-city" class="demo-default" placeholder="Selecione o centro de custo">
+                                <option value="">Selecione um centro de custo</option>
+                                <option value="1">Curitiba</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="control-group margin">
+                        <!-- Button -->
+                        <div class="controls">
+                            <button class="btn btn-success">Salvar</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+        <h3>Menu 1</h3>
+        <p>Some content in menu 1.</p>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+        <h3>Menu 2</h3>
+        <p>Some content in menu 2.</p>
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $('#select-city').selectize({
+            create: false,
+            sortField: {
+                field: 'text',
+                direction: 'asc'
+            },
+            dropdownParent: 'body',
+            onChange: function (value) {
+                $("#cityId").val(value);
+            }
+        });
+    </script>
+}

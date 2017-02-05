@@ -59,6 +59,7 @@ namespace NeoMode.Services.Services
             newStudent.FullName = StudentToInsert.FullName;
             newStudent.ProfileImage = StudentToInsert.ProfileImage;
             newStudent.RegistryCode = StudentToInsert.RegistryCode;
+            newStudent.Phone = StudentToInsert.Phone;
             newStudent.Id = 0;
 
             //Salvando
@@ -71,11 +72,12 @@ namespace NeoMode.Services.Services
             try
             {
                 var old = GetById(StudentToUpdate.Id);
-                old.CityId = StudentToUpdate.CityId;
+                old.CityId = StudentToUpdate.CityId == 0 ? null : StudentToUpdate.CityId;
                 old.Email = StudentToUpdate.Email;
                 old.FullName = StudentToUpdate.FullName;
                 old.ProfileImage = StudentToUpdate.ProfileImage;
                 old.RegistryCode = StudentToUpdate.RegistryCode;
+                old.Phone = StudentToUpdate.Phone;
 
                 _dbContext.Entry(old).State = EntityState.Modified;
 

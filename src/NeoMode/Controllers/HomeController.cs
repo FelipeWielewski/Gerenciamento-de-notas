@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using NeoMode.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using NeoMode.Services;
+using NeoMode.Model;
+using NeoMode.Services.Services;
 
 namespace NeoMode.Controllers
 {
@@ -19,36 +21,8 @@ namespace NeoMode.Controllers
             if (!AuthenticationHelp.isLogged())
                 return RedirectToAction("Index", "Login");
 
-
             return View();
         }
-
-        public IActionResult About()
-        {
-            if (!AuthenticationHelp.isLogged())
-                return RedirectToAction("Index", "Login");
-
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-        public IActionResult Contact()
-        {
-            if (!AuthenticationHelp.isLogged())
-                return RedirectToAction("Index", "Login");
-
-
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            if (!AuthenticationHelp.isLogged())
-                return RedirectToAction("Index", "Login");
-
-            return View();
-        }
+        
     }
 }

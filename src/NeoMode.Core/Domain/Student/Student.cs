@@ -26,6 +26,10 @@ namespace NeoMode.Core.Domain
         /// </summary>
         public string Email { get; set; }
         public int? CityId { get; set; }
+        /// <summary>
+        /// Telefone
+        /// </summary>
+        public string Phone { get; set; }
         public virtual City City { get; set; }
     }
 }

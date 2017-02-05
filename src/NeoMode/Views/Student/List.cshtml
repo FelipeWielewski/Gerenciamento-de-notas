@@ -1,0 +1,38 @@
+﻿@model NeoMode.Model.ListStudentModel
+@{
+    ViewData["Title"] = "Lista de Alunos";
+}
+<style>
+    .tableTrMouseHover tr:hover {
+        cursor: pointer;
+        opacity: 0.6;
+    }
+</style>
+<div class="row">
+    <center><h1>Lista de Alunos!</h1></center>
+</div>
+<div class="row">
+    <table id="example" class="table table-striped table-bordered tableTrMouseHover" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Nº Matricula</th>
+                <th>Nome do Aluno</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Students)
+            {
+                <text>
+                <tr onclick="location.href = '@(Url.Action("Edit", "Student", new { Id = item.Id }))'">
+                    <td>@item.RegistryCode</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Email</td>
+                    <td>@item.Phone</td>
+                </tr>
+                </text>
+            }
+        </tbody>
+    </table>
+</div>
