@@ -18,8 +18,7 @@
 
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#dados">Dados</a></li>
-    <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-    <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+    <li><a data-toggle="tab" href="#notas">Notas</a></li>
 </ul>
 
 <div class="tab-content">
@@ -68,9 +67,13 @@
                         @Html.HiddenFor(x => x.CityId, new { id="cityId"})
                         <label class="control-label" for="CityId">Cidade</label>
                         <div class="controls">
-                            <select id="select-city" class="demo-default" placeholder="Selecione o centro de custo">
-                                <option value="">Selecione um centro de custo</option>
-                                <option value="1">Curitiba</option>
+                            <select id="select-city" class="demo-default" placeholder="Selecione a cidade">
+                                @if (Model.City != null)
+                                {
+                                    <text>
+                                    <option value="@Model.CityId">@Model.City.Description</option>
+                                    </text>
+                                }
                             </select>
 
                         </div>
@@ -86,17 +89,64 @@
             </form>
         </div>
     </div>
-    <div id="menu1" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Some content in menu 1.</p>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-        <h3>Menu 2</h3>
-        <p>Some content in menu 2.</p>
+    <div id="notas" class="tab-pane fade">
+        <div class="row">
+            <h3>Status: @Model.ApprovedText | Média: 28 - Total de pontos: @Model.TotalScore</h3>
+        </div>
+        <div class="row">
+            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Prova Nº</th>
+                        <th>Nota</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Exams.OrderBy(X => X.ExamNumber))
+                    {
+                        <text>
+                        <tr>
+                            <td>@item.ExamNumber</td>
+                            <td>@item.Score</td>
+                        </tr>
+                        </text>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+
 @section scripts {
     <script type="text/javascript">
+        $('#select-city').selectize({
+            create: false,
+            valueField: 'id',
+            labelField: 'name',
+            searchField: ['name', 'id'],
+            options: [],
+            onChange: function (value) {
+                $("#cityId").val(value);
+            },
+            load: function (query, callback) {
+                if (!query.length) return callback();
+                $.ajax({
+                    url: '@Url.Action("GetCityByText", "Student")',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        searchText: query,
+                    },
+                    error: function (res) {
+                        callback();
+                    },
+                    success: function (res) {
+                        callback(res);
+                    }
+                });
+            }
+        });
         $('#select-city').selectize({
             create: false,
             sortField: {

@@ -26,6 +26,10 @@ namespace NeoMode.Service.Services
         {
             return _dbContext.City.Where(X => X.Id == Id).ToList().FirstOrDefault();
         }
+        public IEnumerable<City> GetSearchByDescription(string query)
+        {
+            return _dbContext.City.Where(X => X.Description.Contains(query)).ToList();
+        }
         public City GetByCode(string Initials)
         {
             return _dbContext.City.Where(X => X.Initials == Initials).ToList().FirstOrDefault();

@@ -12,6 +12,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Net.Http.Headers;
+using NeoMode.Service.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,12 +24,14 @@ namespace NeoMode.Controllers
         private readonly IExamService _examService;
         private readonly IExamConfigService _examConfigService;
         private readonly IHostingEnvironment _environment;
-        public StudentController(IStudentService studentService, IExamService examService, IExamConfigService examConfigService, IHostingEnvironment environment)
+        private readonly ICityService _cityService;
+        public StudentController(IStudentService studentService, IExamService examService, IExamConfigService examConfigService, IHostingEnvironment environment, ICityService cityService)
         {
             this._studentService = studentService;
             this._examService = examService;
             this._examConfigService = examConfigService;
             this._environment = environment;
+            this._cityService = cityService;
         }
         // GET: /<controller>/
         public IActionResult Index()
@@ -45,6 +48,19 @@ namespace NeoMode.Controllers
             model.Students = _studentService.GetAll().ToList();
 
             return View(model);
+        }
+        public ActionResult GetCityByText(string searchText)
+        {
+            var result = _cityService.GetSearchByDescription(searchText);
+            if (result != null)
+            {
+                return Json(result.Select(c => new
+                {
+                    name = c.Description,
+                    id = c.Id,
+                }));
+            }
+            return Json(new List<City>());
         }
         public IActionResult Edit(int Id)
         {
@@ -64,6 +80,9 @@ namespace NeoMode.Controllers
                 model.CityId = student.CityId;
                 model.Id = student.Id;
                 model.Phone = student.Phone;
+
+                if (model.CityId != null && model.CityId != 0)
+                    model.City = _cityService.GetById(model.CityId.Value);
 
                 var exams = _examService.GetExamsFromYearByStudentId(student.Id, DateTime.Now.Date);
                 if (exams != null)
@@ -143,7 +162,7 @@ namespace NeoMode.Controllers
                     await file.CopyToAsync(fileStream);
                 }
             }
-            return Path.Combine(Request.Scheme+"://"+Request.Host.Value + "/uploads/", (RegistryCode + ".png"));
+            return Path.Combine(Request.Scheme + "://" + Request.Host.Value + "/uploads/", (RegistryCode + ".png"));
         }
     }
 }

@@ -12,6 +12,7 @@ namespace NeoMode.Service.Services
         IEnumerable<City> GetAll();
         City GetById(int Id);
         City GetByCode(string Initials);
+        IEnumerable<City> GetSearchByDescription(string query);
         void InsertCity(City CityToInsert);
         bool UpdateCity(City CityToUpdate);
 

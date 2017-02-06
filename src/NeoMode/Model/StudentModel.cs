@@ -16,6 +16,41 @@ namespace NeoMode.Model
         public bool? Approved { get; set; }
         public int Id { get; set; }
         public string Phone { get; set; }
+        public City City { get; set; }
         public List<Exam> Exams { get; set; }
+        public string ApprovedText
+        {
+            get
+            {
+                if (Approved == null)
+                    return "Não disponivel";
+                else if (Approved == true)
+                    return "Aprovado";
+                else
+                    return "Reprovado";
+            }
+        }
+        public string AverageScore
+        {
+            get
+            {
+                if (Exams != null && Exams.Count() > 0)
+                {
+                    return (Exams.Sum(x => x.Score) / 4).ToString();
+                }
+                return "-";
+            }
+        }
+        public string TotalScore
+        {
+            get
+            {
+                if (Exams != null && Exams.Count() > 0)
+                {
+                    return Exams.Sum(x => x.Score).ToString();
+                }
+                return "-";
+            }
+        }
     }
 }

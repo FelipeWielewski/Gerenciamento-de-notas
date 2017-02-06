@@ -15,8 +15,9 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/lib/selectize/css/selectize.bootstrap3.css" asp-append-version="true" />
     </environment>
+    <link rel="stylesheet" href="~/lib/selectize/css/selectize.css" />
+    <link rel="stylesheet" href="~/lib/jvectormap/jquery-jvectormap-1.2.2.css">
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -36,8 +37,9 @@
                     <li><a asp-area="" asp-controller="Student" asp-action="List">Alunos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                <li><a>@AuthenticationHelp.getFullName()</a></li>
-                <li><a asp-area="" asp-controller="Login" asp-action="Logout">Deslogar</a></li></ul>
+                    <li><a>@AuthenticationHelp.getFullName()</a></li>
+                    <li><a asp-area="" asp-controller="Login" asp-action="Logout">Deslogar</a></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -64,8 +66,24 @@
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
-        <script src="~/lib/selectize/js/selectize.min.js" asp-append-version="true"></script>
     </environment>
+    <script src="~/lib/jQueryUI/jquery-ui.min.js"></script>
+    <script src="~/lib/JqueryValidate/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/microplugin/microplugin.min.js"></script>
+    @*<script src="~/lib/sifter/sifter.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/lib/fastclick/fastclick.js"></script>
+    <!-- Sparkline -->
+    <script src="~/lib/sparkline/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    <script src="~/lib/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/lib/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="~/lib/slimScroll/jquery.slimscroll.min.js"></script>*@
+
+    <!-- ChartJS 1.0.1 -->
+    @*<script src="~/lib/chartjs/Chart.min.js"></script>*@
+    <script src="~/lib/Selectize/js/standalone/selectize.min.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>
